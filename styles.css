@@ -223,3 +223,74 @@ h2{font-size:clamp(38px,5vw,64px);line-height:1.02;letter-spacing:-.065em;font-w
 .eco-label-feature{max-width:1240px;margin:clamp(70px,9vw,120px) auto 24px;background:#17251f;color:#f6f0e5;padding:clamp(22px,4vw,48px);position:relative;overflow:hidden}.eco-label-feature:after{content:"ECO";position:absolute;right:-20px;bottom:-85px;font-family:"Space Grotesk",sans-serif;font-size:clamp(150px,25vw,310px);font-weight:700;letter-spacing:-.12em;color:#fff;opacity:.035;pointer-events:none}.eco-label-top{display:flex;justify-content:space-between;gap:15px;padding-bottom:17px;border-bottom:1px solid #f6f0e52b;color:#c8d4c7}.eco-label-body{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:clamp(22px,4vw,58px);align-items:center;padding-top:35px;position:relative;z-index:1}.eco-label-symbol{width:95px;height:95px;border:1px solid #d7a66c;border-radius:50%;display:grid;place-items:center;font-family:"Space Grotesk",sans-serif;font-size:64px;line-height:1;font-weight:700;color:#e3b27c;position:relative}.eco-label-symbol span{font-size:16px;position:absolute;right:13px;top:15px}.eco-label-kicker{color:#d7a66c;margin:0 0 10px}.eco-label-copy h2{font-family:"Space Grotesk",sans-serif;font-size:clamp(42px,6vw,72px);letter-spacing:-.08em;line-height:.95;margin:0 0 18px}.eco-label-copy h2 em{font-style:normal;color:#d7a66c}.eco-label-copy>p:not(.eco-label-kicker){max-width:650px;font-size:13px;line-height:1.9;color:#cbd3ca;margin:0}.eco-label-cta{display:inline-flex;gap:24px;align-items:center;margin-top:24px;padding:14px 16px;background:#d7a66c;color:#17251f;font-size:9px;font-weight:700;letter-spacing:.12em}.eco-label-cta span{font-size:15px}.eco-label-note{font-size:9px;line-height:2.2;letter-spacing:.18em;color:#d7a66c;text-align:right;align-self:end}
 .indie-bottom{width:min(1240px,100%);border-top:1px solid #173a2d2b;color:var(--cap-muted);margin-top:32px;padding-top:20px}.indie-bottom p{font-size:9px;letter-spacing:.1em;color:var(--cap-muted)}.indie-bottom a{font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--cap-green)}.indie-profile-page{color:var(--cap-ink)}.indie-profile-back{border-color:#173a2d40;color:var(--cap-ink)}.indie-profile-back:hover{border-color:var(--cap-red);color:var(--cap-red)}.indie-profile-layout>div>p:not(.gateway-eyebrow){color:var(--cap-muted)}.indie-profile-layout .gateway-eyebrow{color:var(--cap-red)}.indie-profile-layout .artist-social-link{background:#173a2d}
 @media(max-width:760px){.indie-header{align-items:flex-start;flex-direction:column;gap:17px}.community-brand img{width:45px;height:30px}.community-nav{width:100%;justify-content:space-between;gap:8px;font-size:8px}.community-nav .nav-eco{padding:8px 10px}.indie-hero{grid-template-columns:1fr;padding:54px 0 65px;gap:36px}.indie-hero h1{font-size:clamp(54px,13vw,82px)}.community-hero-art{min-height:260px;aspect-ratio:1.35/1;width:100%;border-radius:42% 42% 3px 3px}.hero-art-stamp{width:125px;height:125px;font-size:51px}.community-section-heading{align-items:flex-start;flex-direction:column;gap:12px}.community-section-heading>p{font-size:11px}.indie-artists{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.indie-artist{padding:8px}.indie-artist strong{font-size:clamp(17px,5vw,23px)}.indie-artist-no{font-size:7px}.eco-label-body{grid-template-columns:1fr;gap:22px;padding-top:25px}.eco-label-symbol{width:72px;height:72px;font-size:49px}.eco-label-note{display:none}.eco-label-top{font-size:7px;letter-spacing:.1em}.eco-label-copy>p:not(.eco-label-kicker){font-size:12px}.indie-bottom{flex-direction:column;align-items:flex-start}}
+
+
+/* CAP visual overhaul 2026-10-19 */
+.independent-view{background:#f7f3e9!important;color:#193d2e!important;padding:0 clamp(18px,5.5vw,84px) 30px!important;font-family:"DM Sans",Arial,sans-serif!important}
+.independent-view *{box-sizing:border-box}
+.indie-header{min-height:94px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;border-bottom:2px solid #193d2e!important;padding:20px 0!important;background:#f7f3e9!important}
+.community-brand{gap:14px!important}
+.community-brand img{width:58px!important;height:39px!important;border-radius:1px!important;box-shadow:0 0 0 1px #193d2e30!important}
+.community-brand strong{font-size:29px!important;letter-spacing:-.09em!important;color:#193d2e!important}
+.community-brand small{font-size:8px!important;letter-spacing:.16em!important;color:#536b5c!important}
+.community-nav{gap:clamp(14px,2.8vw,38px)!important;font-size:10px!important;letter-spacing:.12em!important;color:#193d2e!important}
+.community-nav .nav-eco{background:#193d2e!important;color:#f7f3e9!important;border:0!important;padding:12px 17px!important}
+.community-nav .nav-eco:hover{background:#c94348!important;color:white!important}
+.indie-hero{max-width:1320px!important;min-height:590px!important;padding:clamp(56px,8vw,112px) 0 76px!important;grid-template-columns:1.15fr .85fr!important;gap:clamp(30px,7vw,100px)!important}
+.community-kicker{color:#b83743!important;font-size:10px!important}
+.community-kicker span{background:#b83743!important;box-shadow:0 0 0 5px #b837431c!important}
+.indie-hero h1{font-size:clamp(58px,8.6vw,118px)!important;letter-spacing:-.095em!important;line-height:.87!important;color:#193d2e!important;max-width:760px!important}
+.indie-hero h1 em{color:#bd3542!important}
+.indie-hero>div>p:not(.community-kicker){font-size:16px!important;max-width:530px!important;color:#53685a!important;line-height:1.85!important}
+.community-primary-cta{background:#193d2e!important;color:#fffaf0!important;padding:17px 20px!important;letter-spacing:.14em!important;box-shadow:5px 5px 0 #c94348!important;transition:transform .18s,box-shadow .18s!important}
+.community-primary-cta:hover{transform:translate(3px,3px)!important;box-shadow:2px 2px 0 #c94348!important}
+.community-hero-art{background:#dce5d3!important;border-radius:2px 42% 2px 2px!important;aspect-ratio:4/4.3!important;min-height:360px!important}
+.community-hero-art:before{border:1px solid #193d2e50!important;box-shadow:0 0 0 24px #193d2e0d,0 0 0 50px #193d2e0a!important}
+.community-hero-art:after{background:linear-gradient(90deg,transparent,#f7f3e9d9,transparent)!important;border-color:#fff9!important}
+.hero-art-stamp{background:#bd3542!important;border-radius:2px!important;transform:rotate(-7deg)!important;box-shadow:9px 9px 0 #193d2e!important}
+.hero-art-caption{color:#193d2e!important}
+.hero-art-lines{border-radius:2px 42% 2px 2px!important;border-color:#193d2e50!important}
+.community-section-heading{max-width:1320px!important;border-top:2px solid #193d2e!important;padding-top:27px!important;margin-bottom:30px!important}
+.community-section-heading>div>span{color:#bd3542!important}
+.community-section-heading h2{font-size:clamp(36px,5vw,62px)!important;color:#193d2e!important}
+.community-section-heading>p{color:#53685a!important}
+.indie-artists{max-width:1320px!important;gap:20px!important}
+.indie-artist{background:#fffdf7!important;border:1px solid #193d2e28!important;border-radius:2px!important;padding:12px!important;box-shadow:0 4px 0 #193d2e!important;transition:transform .2s,box-shadow .2s,border-color .2s!important}
+.indie-artist:hover{border-color:#bd3542!important;transform:translateY(-5px)!important;box-shadow:0 9px 0 #bd3542!important}
+.indie-artist img{aspect-ratio:4/3!important;filter:saturate(.92)!important}
+.indie-artist-no{font-size:9px!important;color:#bd3542!important;letter-spacing:.16em!important}
+.indie-artist strong{display:block!important;color:#193d2e!important;font-size:clamp(23px,2.8vw,36px)!important;letter-spacing:-.07em!important;margin-top:2px!important}
+.indie-artist>span:last-child{color:#53685a!important;font-size:11px!important}
+.eco-label-feature{max-width:1320px!important;background:#182720!important;border-radius:2px!important;margin-top:100px!important;border-left:7px solid #c94348!important;padding:clamp(24px,5vw,58px)!important}
+.eco-label-top{font-size:10px!important;color:#d7b886!important;letter-spacing:.15em!important}
+.eco-label-symbol{border-radius:2px!important;border-color:#d7b886!important;color:#d7b886!important}
+.eco-label-copy h2{color:#f7f3e9!important;font-size:clamp(46px,7vw,82px)!important}
+.eco-label-copy h2 em{color:#d7b886!important}
+.eco-label-cta{background:#d7b886!important;color:#182720!important}
+.indie-bottom{max-width:1320px!important;border-top:2px solid #193d2e!important;padding:22px 0 0!important}
+.indie-bottom a{color:#bd3542!important}
+.indie-profile-page{background:#fffdf7!important;border:1px solid #193d2e22!important;padding:clamp(18px,4vw,36px)!important;margin-top:32px!important}
+.indie-profile-back{background:#193d2e!important;color:#fffaf0!important;border:0!important}
+.indie-profile-layout h2{color:#193d2e!important}
+@media(max-width:760px){
+ .independent-view{padding:0 16px 24px!important}
+ .indie-header{align-items:flex-start!important;flex-direction:column!important;gap:17px!important;padding:16px 0!important}
+ .community-brand img{width:49px!important;height:33px!important}
+ .community-nav{width:100%!important;justify-content:space-between!important;gap:8px!important;font-size:8px!important}
+ .community-nav .nav-eco{padding:9px 11px!important}
+ .indie-hero{grid-template-columns:1fr!important;padding:54px 0 62px!important;gap:32px!important;min-height:0!important}
+ .indie-hero h1{font-size:clamp(57px,13.8vw,88px)!important}
+ .community-hero-art{min-height:265px!important;aspect-ratio:1.25/1!important;border-radius:2px 35% 2px 2px!important}
+ .hero-art-stamp{width:125px!important;height:125px!important;font-size:51px!important}
+ .community-section-heading{align-items:flex-start!important;flex-direction:column!important;gap:12px!important}
+ .indie-artists{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important}
+ .indie-artist{padding:8px!important}
+ .indie-artist strong{font-size:clamp(17px,5.1vw,25px)!important}
+ .indie-artist-no{font-size:7px!important;letter-spacing:.08em!important}
+ .eco-label-feature{margin-top:65px!important;padding:22px 17px!important}
+ .eco-label-body{grid-template-columns:1fr!important;gap:20px!important;padding-top:25px!important}
+ .eco-label-symbol{width:70px!important;height:70px!important;font-size:48px!important}
+ .eco-label-note{display:none!important}
+ .eco-label-top{font-size:7px!important;letter-spacing:.08em!important}
+ .eco-label-copy>p:not(.eco-label-kicker){font-size:12px!important}
+}
