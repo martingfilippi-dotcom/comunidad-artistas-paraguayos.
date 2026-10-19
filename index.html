@@ -55,6 +55,19 @@
 
 <script>
 (function(){
+ const gateway=document.getElementById('community-gateway');
+ const indie=document.getElementById('independent-view');
+ function showView(view){
+   if(gateway) gateway.hidden=view!=='gateway';
+   if(indie) indie.hidden=view!=='independent';
+   window.scrollTo({top:0,behavior:'instant'});
+ }
+ document.querySelectorAll('[data-community="independent"]').forEach(function(el){
+   el.addEventListener('click',function(){showView('independent');});
+ });
+ document.querySelectorAll('.back-communities').forEach(function(el){
+   el.addEventListener('click',function(){showView('gateway');});
+ });
  const grid=document.getElementById('indie-artists-grid');
  const pages=Array.from(document.querySelectorAll('.indie-profile-page'));
  function showProfile(slug){
