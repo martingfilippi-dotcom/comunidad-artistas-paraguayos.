@@ -359,3 +359,60 @@ h2{font-size:clamp(38px,5vw,64px);line-height:1.02;letter-spacing:-.065em;font-w
   .community-update-card>img{height:220px}
   .community-update-card h3{font-size:20px}
 }
+
+
+/* JOAKO KC — editorial artist profile */
+.joako-profile{--joako-accent:#d4ff3f;--joako-ink:#11120f;color:#f5f3ed}
+.joako-profile .indie-profile-back{margin-bottom:22px}
+.joako-cover{position:relative;min-height:560px;display:flex;align-items:flex-end;overflow:hidden;border-radius:18px;background:#171813;isolation:isolate}
+.joako-cover-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:grayscale(100%) contrast(1.08);opacity:.48;z-index:-2}
+.joako-cover-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,13,11,.98) 0%,rgba(12,13,11,.75) 48%,rgba(12,13,11,.1) 100%),linear-gradient(0deg,rgba(12,13,11,.9),transparent 65%);z-index:-1}
+.joako-cover-copy{max-width:760px;padding:clamp(28px,6vw,76px)}
+.joako-kicker,.joako-overline,.joako-section-label,.joako-cover-index{font-family:"Space Grotesk",sans-serif;font-size:11px;letter-spacing:.15em;font-weight:700}
+.joako-kicker{color:var(--joako-accent);margin:0 0 18px}
+.joako-overline{color:#d1d0c8;margin:0 0 12px}
+.joako-cover h2{font-family:"Space Grotesk",sans-serif;font-size:clamp(76px,15vw,168px);letter-spacing:-.09em;line-height:.78;margin:0 0 26px;font-weight:700}
+.joako-cover h2 span{color:var(--joako-accent);font-size:.38em;letter-spacing:-.05em;margin-left:12px;vertical-align:top}
+.joako-cover-intro{font-size:clamp(18px,2.4vw,25px);line-height:1.35;max-width:510px;color:#f1f0e9}
+.joako-profile .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.joako-profile .tag-row span{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 12px;font-size:12px}
+.joako-youtube-cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--joako-accent);color:#12130f!important;text-decoration:none!important;padding:14px 18px;font-size:11px;letter-spacing:.09em;font-weight:800;border-radius:3px;transition:transform .2s ease,background .2s ease}
+.joako-youtube-cta:hover{transform:translateY(-2px);background:#e4ff80}
+.joako-cover-index{position:absolute;right:24px;bottom:24px;color:#e3e2da;font-size:9px;writing-mode:vertical-rl}
+.joako-featured,.joako-bio,.joako-timeline,.joako-song-section{padding:68px 0 10px}
+.joako-section-label{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:17px;margin-bottom:28px;color:#b7b7ae}
+.joako-section-label span:first-child{color:var(--joako-accent)}
+.joako-player-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(220px,.8fr);gap:32px;align-items:center}
+.joako-player-frame{position:relative;aspect-ratio:16/9;background:#080908;overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:10px}
+.joako-player-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.joako-player-copy h3,.joako-bio-heading h3{font-family:"Space Grotesk",sans-serif;font-size:clamp(36px,5vw,62px);line-height:.98;letter-spacing:-.06em;margin:0 0 20px}
+.joako-player-copy h3 em,.joako-bio-heading h3 em,.joako-outro h3 em{color:var(--joako-accent);font-style:normal}
+.joako-player-copy>p:not(.joako-kicker),.joako-bio-heading>p:not(.joako-kicker){color:#bdbdb4;line-height:1.8}
+.joako-text-link{display:inline-block;color:var(--joako-accent);font-size:11px;letter-spacing:.08em;text-decoration:none;border-bottom:1px solid var(--joako-accent);padding-bottom:8px;margin-top:12px}
+.joako-bio-grid{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr);gap:clamp(28px,7vw,100px)}
+.joako-bio-heading{position:sticky;top:30px;align-self:start}
+.joako-bio-copy p{font-size:15px;line-height:1.9;color:#d1d0c8;margin:0 0 20px}
+.joako-bio-copy strong{color:#fff}
+.joako-timeline-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.joako-moment{position:relative;min-height:210px;padding:26px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.025);border-radius:8px;transition:border-color .2s,transform .2s}
+.joako-moment:hover{border-color:var(--joako-accent);transform:translateY(-3px)}
+.joako-year{font-family:"Space Grotesk",sans-serif;font-size:13px;color:var(--joako-accent);font-weight:700}
+.joako-moment-no{float:right;color:#696a61;font-size:11px}
+.joako-moment h3{font-family:"Space Grotesk",sans-serif;font-size:23px;letter-spacing:-.04em;margin:35px 0 10px}
+.joako-moment p{font-size:13px;line-height:1.75;color:#bdbdb4;margin:0}
+.joako-moment-current{background:var(--joako-accent);color:#151610;border-color:var(--joako-accent)}
+.joako-moment-current .joako-year,.joako-moment-current .joako-moment-no{color:#353a20}
+.joako-moment-current p{color:#34372b}
+.joako-song-grid{display:grid;gap:10px}
+.joako-song-card{display:grid;grid-template-columns:46px minmax(0,1fr) 44px;align-items:center;gap:18px;padding:23px 20px;border:1px solid rgba(255,255,255,.14);border-radius:7px}
+.joako-song-number{font-family:"Space Grotesk",sans-serif;font-size:13px;color:var(--joako-accent)}
+.joako-song-card .joako-kicker{font-size:9px;margin-bottom:8px}
+.joako-song-card h3{font-family:"Space Grotesk",sans-serif;font-size:25px;letter-spacing:-.04em;margin:0 0 7px}
+.joako-song-card p:last-child{font-size:13px;line-height:1.6;color:#bdbdb4;margin:0}
+.joako-song-card>a{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(255,255,255,.25);border-radius:50%;color:var(--joako-accent);font-size:20px;text-decoration:none}
+.joako-song-card>a:hover{background:var(--joako-accent);color:#111}
+.joako-outro{margin:70px 0 10px;padding:clamp(30px,7vw,78px);background:#1d2017;border:1px solid rgba(212,255,63,.35);border-radius:12px}
+.joako-outro h3{font-family:"Space Grotesk",sans-serif;font-size:clamp(32px,5vw,60px);letter-spacing:-.06em;line-height:1.05;margin:12px 0 20px}
+.joako-outro>p:not(.joako-kicker){max-width:640px;color:#c2c3b8;line-height:1.8;margin-bottom:28px}
+@media(max-width:760px){.joako-cover{min-height:540px}.joako-cover-copy{padding:28px 22px 40px}.joako-cover-index{display:none}.joako-player-grid,.joako-bio-grid{grid-template-columns:1fr}.joako-player-grid{gap:24px}.joako-bio-heading{position:static}.joako-featured,.joako-bio,.joako-timeline,.joako-song-section{padding-top:48px}.joako-timeline-grid{grid-template-columns:1fr}.joako-moment{min-height:unset}.joako-section-label{font-size:9px}.joako-song-card{grid-template-columns:28px minmax(0,1fr) 38px;gap:12px;padding:18px 12px}.joako-song-card h3{font-size:21px}.joako-song-card>a{width:36px;height:36px}}
+@media(prefers-reduced-motion:reduce){.joako-moment,.joako-youtube-cta{transition:none}}
