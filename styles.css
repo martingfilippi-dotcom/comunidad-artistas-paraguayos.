@@ -558,3 +558,25 @@ h2{font-size:clamp(38px,5vw,64px);line-height:1.02;letter-spacing:-.065em;font-w
    background:linear-gradient(0deg,rgba(20,11,31,.98) 0%,rgba(30,16,46,.77) 55%,rgba(30,16,46,.16) 100%)!important
  }
 }
+
+
+/* Joako KC — lilac and purple artist identity */
+.joako-profile{--joako-accent:#c7a0ff!important;--joako-ink:#17101f!important}
+.joako-profile .joako-cover{background:#21142f!important}
+.joako-profile .joako-cover-image{filter:saturate(.72) hue-rotate(16deg) contrast(1.05)!important}
+.joako-profile .joako-cover-shade{background:linear-gradient(90deg,rgba(20,11,31,.97) 0%,rgba(30,16,46,.76) 50%,rgba(30,16,46,.18) 100%),linear-gradient(0deg,rgba(20,11,31,.94),transparent 70%)!important}
+.joako-profile .joako-kicker,.joako-profile .joako-section-label span:first-child,.joako-profile .joako-year,.joako-profile .joako-text-link,.joako-profile .joako-song-number,.joako-profile .joako-song-card>a{color:#d3b3ff!important}
+.joako-profile .joako-youtube-cta{background:#b78aff!important;color:#1b1028!important}
+.joako-profile .joako-youtube-cta:hover{background:#d1b3ff!important}
+.joako-profile .joako-moment:hover{border-color:#c7a0ff!important}
+.joako-profile .joako-moment-current{background:#b78aff!important;border-color:#b78aff!important;color:#1b1028!important}
+.joako-profile .joako-moment-current .joako-year,.joako-profile .joako-moment-current .joako-moment-no{color:#3a2455!important}
+.joako-profile .joako-moment-current p{color:#2e1d42!important}
+.joako-profile .joako-song-card>a:hover{background:#b78aff!important;color:#1b1028!important}
+.joako-profile .joako-outro{background:linear-gradient(135deg,#241532,#17101f)!important;border-color:rgba(199,160,255,.45)!important}
+.joako-profile .joako-player-poster{background:#21142f!important}
+.joako-profile .joako-play-mark{background:#c7a0ff!important;color:#1b1028!important}
+.joako-profile .joako-player-overlay a{color:#d3b3ff!important;border-color:#d3b3ff!important}
+.joako-profile .joako-player-poster>img{filter:grayscale(35%) sepia(15%) hue-rotate(220deg)!important}
+.joako-profile .joako-cover h2 span,.joako-profile .joako-player-copy h3 em,.joako-profile .joako-bio-heading h3 em,.joako-profile .joako-outro h3 em{color:#c7a0ff!important}
+@media(max-width:760px){.joako-profile .joako-cover-shade{background:linear-gradient(0deg,rgba(20,11,31,.98) 0%,rgba(30,16,46,.77) 55%,rgba(30,16,46,.16) 100%)!important}}
