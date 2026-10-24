@@ -503,3 +503,11 @@ h2{font-size:clamp(38px,5vw,64px);line-height:1.02;letter-spacing:-.065em;font-w
   .joako-outro h3{font-size:clamp(30px,8.5vw,42px)!important}
   .joako-outro>p:not(.joako-kicker){font-size:13px!important}
 }
+
+
+/* Joako official social links */
+.joako-social-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:22px}
+.joako-social-links .joako-youtube-cta{margin:0}
+.joako-instagram-cta{display:inline-flex;align-items:center;justify-content:center;padding:13px 16px;min-height:44px;border:1px solid rgba(255,255,255,.32);border-radius:3px;color:#fff!important;text-decoration:none!important;font-size:10px;font-weight:800;letter-spacing:.09em;transition:background .2s,border-color .2s}
+.joako-instagram-cta:hover{background:rgba(255,255,255,.09);border-color:#d4ff3f}
+@media(max-width:760px){.joako-social-links{display:grid;grid-template-columns:1fr;gap:9px}.joako-social-links .joako-youtube-cta,.joako-instagram-cta{width:100%;text-align:center}}
