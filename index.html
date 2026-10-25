@@ -178,6 +178,66 @@
   <div class="indie-bottom"><p>COMUNIDAD DE ARTISTAS PARAGUAYOS · CULTURA EN MOVIMIENTO</p><a href="#eco-sello">ECO, SELLO DISCOGRÁFICO ↗</a></div>
 </section>
 
+
+<div id="fezet-floating-player" class="fezet-floating-player" role="region" aria-label="Reproductor flotante de Fezet" hidden>
+  <div class="fezet-floating-art" aria-hidden="true">F</div>
+  <div class="fezet-floating-meta">
+    <span class="fezet-floating-eyebrow">FEZET · SIGUE SONANDO</span>
+    <strong id="fezet-floating-title">SoundCloud</strong>
+    <span id="fezet-floating-status">Reproduciendo</span>
+  </div>
+  <button type="button" id="fezet-floating-toggle" class="fezet-floating-button" aria-label="Pausar música" title="Pausar">Ⅱ</button>
+  <button type="button" id="fezet-floating-close" class="fezet-floating-close" aria-label="Detener y cerrar reproductor" title="Detener y cerrar">×</button>
+</div>
+<script src="https://w.soundcloud.com/player/api.js"></script>
+<script>
+(function(){
+  var frame=document.getElementById("fezet-soundcloud-player");
+  var dock=document.getElementById("fezet-floating-player");
+  var toggle=document.getElementById("fezet-floating-toggle");
+  var close=document.getElementById("fezet-floating-close");
+  var title=document.getElementById("fezet-floating-title");
+  var status=document.getElementById("fezet-floating-status");
+  if(!frame||!dock||!toggle||!close||!window.SC||!window.SC.Widget)return;
+  var widget=window.SC.Widget(frame);
+  var dismissed=false;
+  var isPlaying=false;
+  function showDock(){if(!dismissed)dock.hidden=false;}
+  function setPlaying(value){
+    isPlaying=!!value;
+    toggle.textContent=isPlaying?"Ⅱ":"▶";
+    toggle.setAttribute("aria-label",isPlaying?"Pausar música":"Reanudar música");
+    toggle.title=isPlaying?"Pausar":"Reanudar";
+    status.textContent=isPlaying?"Reproduciendo":"En pausa";
+  }
+  function syncTrack(){
+    widget.getCurrentSound(function(sound){
+      if(!sound)return;
+      title.textContent=sound.title||"Tema de Fezet";
+      status.textContent=(sound.user&&sound.user.username?sound.user.username:"Fezet")+(isPlaying?" · Reproduciendo":" · En pausa");
+    });
+  }
+  widget.bind(window.SC.Widget.Events.READY,function(){
+    widget.isPaused(function(paused){setPlaying(!paused);if(!paused){dismissed=false;showDock();syncTrack();}});
+  });
+  widget.bind(window.SC.Widget.Events.PLAY,function(){
+    dismissed=false;showDock();setPlaying(true);syncTrack();
+  });
+  widget.bind(window.SC.Widget.Events.PAUSE,function(){setPlaying(false);});
+  widget.bind(window.SC.Widget.Events.FINISH,function(){setPlaying(false);status.textContent="Tema terminado";});
+  toggle.addEventListener("click",function(){
+    dismissed=false;showDock();
+    if(isPlaying){widget.pause();}
+    else{widget.play();}
+  });
+  close.addEventListener("click",function(){
+    dismissed=true;
+    widget.pause();
+    dock.hidden=true;
+  });
+})();
+</script>
+
 <script>
 (function(){
  const gateway=document.getElementById('community-gateway');
