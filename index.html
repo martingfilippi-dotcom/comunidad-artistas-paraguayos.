@@ -204,6 +204,7 @@
   var sourceReady=!!window.fezetSoundCloudSourceReady;
   var widgetReady=false;
   var dismissed=false;
+  var pauseRequested=false;
   var isPlaying=false;
   var initStarted=false;
   var attempts=0;
@@ -236,8 +237,11 @@
         var wasPlaying=isPlaying;
         setPlaying(!paused);
         if(!paused){
+          if(pauseRequested){try{widget.pause();}catch(error){}return;}
           if(!wasPlaying){dismissed=false;revealDock();}
           syncTrack();
+        }else if(pauseRequested){
+          pauseRequested=false;
         }
       });
     }catch(error){}
@@ -259,6 +263,7 @@
       syncTrack();
     });
     widget.bind(window.SC.Widget.Events.PLAY,function(){
+      pauseRequested=false;
       dismissed=false;
       revealDock();
       setPlaying(true);
@@ -289,6 +294,7 @@
   });
   close.addEventListener("click",function(){
     dismissed=true;
+    pauseRequested=true;
     if(widget){try{widget.pause();}catch(error){}}
     setPlaying(false);
     dock.hidden=true;
