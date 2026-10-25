@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=fezet-floating-mini-20261025-1">
+<link rel="stylesheet" href="styles.css?v=fezet-mini-player-reliable-20261025-1">
 <script src="https://w.soundcloud.com/player/api.js"></script>
 </head>
 <body>
@@ -194,53 +194,108 @@
 </div>
 <script>
 (function(){
-  function initFezetFloatingWidget(){
   var frame=document.getElementById("fezet-soundcloud-player");
   var dock=document.getElementById("fezet-floating-player");
   var toggle=document.getElementById("fezet-floating-toggle");
   var close=document.getElementById("fezet-floating-close");
   var title=document.getElementById("fezet-floating-title");
   var status=document.getElementById("fezet-floating-status");
-  if(!frame||!dock||!toggle||!close||!window.SC||!window.SC.Widget)return;
-  var widget=window.SC.Widget(frame);
+  var widget=null;
+  var sourceReady=!!window.fezetSoundCloudSourceReady;
+  var widgetReady=false;
   var dismissed=false;
   var isPlaying=false;
-  function showDock(){if(!dismissed)dock.hidden=false;}
+  var initStarted=false;
+  var attempts=0;
+
   function setPlaying(value){
     isPlaying=!!value;
     toggle.textContent=isPlaying?"Ⅱ":"▶";
     toggle.setAttribute("aria-label",isPlaying?"Pausar música":"Reanudar música");
     toggle.title=isPlaying?"Pausar":"Reanudar";
-    status.textContent=isPlaying?"Reproduciendo":"En pausa";
+    if(isPlaying) status.textContent="Reproduciendo";
+    else if(!dismissed) status.textContent="En pausa";
   }
+  function revealDock(){if(!dismissed)dock.hidden=false;}
   function syncTrack(){
-    widget.getCurrentSound(function(sound){
-      if(!sound)return;
-      title.textContent=sound.title||"Tema de Fezet";
-      status.textContent=(sound.user&&sound.user.username?sound.user.username:"Fezet")+(isPlaying?" · Reproduciendo":" · En pausa");
-    });
+    if(!widget)return;
+    try{
+      widget.getCurrentSound(function(sound){
+        if(!sound)return;
+        title.textContent=sound.title||"Tema de Fezet";
+        var artist=(sound.user&&sound.user.username)?sound.user.username:"Fezet";
+        status.textContent=artist+(isPlaying?" · Reproduciendo":" · En pausa");
+      });
+    }catch(error){}
   }
-  widget.bind(window.SC.Widget.Events.READY,function(){
-    widget.isPaused(function(paused){setPlaying(!paused);if(!paused){dismissed=false;showDock();syncTrack();}});
-  });
-  widget.bind(window.SC.Widget.Events.PLAY,function(){
-    dismissed=false;showDock();setPlaying(true);syncTrack();
-  });
-  widget.bind(window.SC.Widget.Events.PAUSE,function(){setPlaying(false);});
-  widget.bind(window.SC.Widget.Events.FINISH,function(){setPlaying(false);status.textContent="Tema terminado";});
+  function pollState(){
+    if(!widget)return;
+    try{
+      widget.isPaused(function(paused){
+        if(typeof paused!=="boolean")return;
+        var wasPlaying=isPlaying;
+        setPlaying(!paused);
+        if(!paused){
+          if(!wasPlaying){dismissed=false;revealDock();}
+          syncTrack();
+        }
+      });
+    }catch(error){}
+  }
+  function fezetProfileIsVisible(){var profile=document.getElementById("indie-profile-fezet");return !!profile&&!profile.hidden;}
+  function initWidget(){
+    if(!sourceReady||!fezetProfileIsVisible()||widget||initStarted)return;
+    if(!frame||!dock||!toggle||!close||!window.SC||!window.SC.Widget){
+      attempts++;
+      if(attempts<40)setTimeout(initWidget,250);
+      else status.textContent="No se pudo conectar con SoundCloud";
+      return;
+    }
+    initStarted=true;
+    try{widget=window.SC.Widget(frame);}catch(error){initStarted=false;setTimeout(initWidget,500);return;}
+    widget.bind(window.SC.Widget.Events.READY,function(){
+      widgetReady=true;
+      pollState();
+      syncTrack();
+    });
+    widget.bind(window.SC.Widget.Events.PLAY,function(){
+      dismissed=false;
+      revealDock();
+      setPlaying(true);
+      syncTrack();
+    });
+    widget.bind(window.SC.Widget.Events.PAUSE,function(){setPlaying(false);});
+    widget.bind(window.SC.Widget.Events.FINISH,function(){setPlaying(false);status.textContent="Tema terminado";});
+    widget.bind(window.SC.Widget.Events.ERROR,function(){status.textContent="SoundCloud no pudo reproducir este tema";});
+    // Polling is a fallback for iOS cases where the iframe's PLAY event is missed.
+    window.setInterval(pollState,1200);
+    window.setTimeout(pollState,500);
+  }
+
+  // Called whenever the visitor opens Fezet; the dock stays outside the hidden profile view.
+  window.showFezetMiniPlayerForProfile=function(){
+    dismissed=false;
+    dock.hidden=false;
+    status.textContent=isPlaying?"Reproduciendo":(widgetReady?"Listo para escuchar":"Conectando con SoundCloud…");
+    if(widget)pollState();
+    else if(sourceReady)initWidget();
+  };
+
   toggle.addEventListener("click",function(){
-    dismissed=false;showDock();
-    if(isPlaying){widget.pause();}
-    else{widget.play();}
+    if(!widget){initWidget();status.textContent="Conectando con SoundCloud…";return;}
+    try{
+      widget.isPaused(function(paused){if(paused)widget.play();else widget.pause();});
+    }catch(error){status.textContent="No se pudo controlar la reproducción";}
   });
   close.addEventListener("click",function(){
     dismissed=true;
-    widget.pause();
+    if(widget){try{widget.pause();}catch(error){}}
+    setPlaying(false);
     dock.hidden=true;
   });
-  }
-  window.addEventListener("fezetSoundCloudSourceReady",initFezetFloatingWidget,{once:true});
-  if(window.fezetSoundCloudSourceReady)initFezetFloatingWidget();
+
+  window.addEventListener("fezetSoundCloudSourceReady",function(){sourceReady=true;setTimeout(initWidget,60);},{once:true});
+  if(sourceReady)setTimeout(initWidget,60);
 })();
 </script>
 
@@ -268,6 +323,7 @@
    const label=document.getElementById('eco-sello'); if(label) label.hidden=!!slug;
    const sectionHeading=document.querySelector('.community-section-heading'); if(sectionHeading) sectionHeading.hidden=!!slug;
    const hero=document.querySelector('.indie-hero'); if(hero) hero.hidden=!!slug;
+   if(slug==='fezet' && typeof window.showFezetMiniPlayerForProfile==='function') window.showFezetMiniPlayerForProfile();
    window.scrollTo({top:0,behavior:'instant'});
  }
  document.querySelectorAll('[data-indie-profile]').forEach(function(el){
