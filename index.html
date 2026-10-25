@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=fezet-match-lk-oembed-20261025-1">
+<link rel="stylesheet" href="styles.css?v=fezet-floating-mini-20261025-1">
+<script src="https://w.soundcloud.com/player/api.js"></script>
 </head>
 <body>
 
@@ -73,6 +74,7 @@
 (function(){
   const sharedUrl = "https://on.soundcloud.com/FQYUZMWqj5UM1yo4Np";
   const frame = document.getElementById("fezet-soundcloud-player");
+  function markFezetSourceReady(){ window.fezetSoundCloudSourceReady=true; window.dispatchEvent(new Event("fezetSoundCloudSourceReady")); }
   // Match the working LK integration: resolve the artist's shared URL through SoundCloud oEmbed.
   if (frame) {
     frame.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(sharedUrl) +
@@ -81,12 +83,12 @@
   fetch("https://soundcloud.com/oembed?format=json&url=" + encodeURIComponent(sharedUrl))
     .then(function(response){ if(!response.ok) throw new Error("SoundCloud oEmbed unavailable"); return response.json(); })
     .then(function(data){
-      if(!data || !data.html || !frame) return;
+      if(!data || !data.html || !frame){ markFezetSourceReady(); return; }
       const parsed = new DOMParser().parseFromString(data.html, "text/html");
       const embedded = parsed.querySelector("iframe");
-      if(!embedded || !embedded.src) return;
+      if(!embedded || !embedded.src){ markFezetSourceReady(); return; }
       const embedUrl = new URL(embedded.src, "https://soundcloud.com");
-      if(embedUrl.hostname !== "w.soundcloud.com") return;
+      if(embedUrl.hostname !== "w.soundcloud.com"){ markFezetSourceReady(); return; }
       embedUrl.searchParams.set("show_teaser", "false");
       embedUrl.searchParams.set("visual", "false");
       embedUrl.searchParams.set("auto_play", "false");
@@ -96,8 +98,9 @@
       embedUrl.searchParams.set("show_reposts", "false");
       embedUrl.searchParams.set("color", "#ff6a2b");
       frame.src = embedUrl.href;
+      markFezetSourceReady();
     })
-    .catch(function(){ /* The direct SoundCloud widget remains available as fallback. */ });
+    .catch(function(){ /* The direct SoundCloud widget remains available as fallback. */ markFezetSourceReady(); });
 })();
 </script></div></div></div>
   <div class="indie-profile-page joako-profile" id="indie-profile-joako" hidden>
@@ -177,6 +180,69 @@
   <div class="indie-profile-page" id="indie-profile-stri-nw" hidden><button type="button" class="indie-profile-back">← VOLVER A ARTISTAS INDEPENDIENTES</button><div class="indie-profile-layout"><div class="community-managed-avatar" aria-label="STRI NW">S</div><div><p class="gateway-eyebrow">ARTISTA INDEPENDIENTE · PARAGUAY</p><h2>STRI NW</h2><p>STRI NW es un artista paraguayo nacido el 3 de agosto de 2005 en Asunción, Paraguay. Inició su camino musical en 2023 con el lanzamiento de su primer single, <em>NECKLACE</em>. Ese mismo año presentó su álbum <em>NEXT WONDER</em>, introduciendo su alter ego <strong>NEXT WONDER (NW)</strong>, una identidad artística que le permite explorar distintas facetas emocionales y conceptuales.</p><p>Su propuesta musical transita entre el Trap, Hip-Hop/Rap, R&amp;B, Rage y Pop, combinando sonidos y emociones para construir una identidad propia, introspectiva, personal y cruda. A través de su música, STRI NW explora diferentes dimensiones de su universo creativo, dando forma a una visión artística que trasciende los géneros y refleja su evolución personal.</p><div class="tag-row"><span>Trap</span><span>Hip-Hop/Rap</span><span>R&amp;B</span><span>Rage</span><span>Pop</span><span>Paraguay</span></div></div></div></div>
   <div class="indie-bottom"><p>COMUNIDAD DE ARTISTAS PARAGUAYOS · CULTURA EN MOVIMIENTO</p><a href="#eco-sello">ECO, SELLO DISCOGRÁFICO ↗</a></div>
 </section>
+
+
+<div id="fezet-floating-player" class="fezet-floating-player" role="region" aria-label="Reproductor flotante de Fezet" hidden>
+  <div class="fezet-floating-art" aria-hidden="true">F</div>
+  <div class="fezet-floating-meta">
+    <span class="fezet-floating-eyebrow">FEZET · SIGUE SONANDO</span>
+    <strong id="fezet-floating-title">SoundCloud</strong>
+    <span id="fezet-floating-status">Reproduciendo</span>
+  </div>
+  <button type="button" id="fezet-floating-toggle" class="fezet-floating-button" aria-label="Pausar música" title="Pausar">Ⅱ</button>
+  <button type="button" id="fezet-floating-close" class="fezet-floating-close" aria-label="Detener y cerrar reproductor" title="Detener y cerrar">×</button>
+</div>
+<script>
+(function(){
+  function initFezetFloatingWidget(){
+  var frame=document.getElementById("fezet-soundcloud-player");
+  var dock=document.getElementById("fezet-floating-player");
+  var toggle=document.getElementById("fezet-floating-toggle");
+  var close=document.getElementById("fezet-floating-close");
+  var title=document.getElementById("fezet-floating-title");
+  var status=document.getElementById("fezet-floating-status");
+  if(!frame||!dock||!toggle||!close||!window.SC||!window.SC.Widget)return;
+  var widget=window.SC.Widget(frame);
+  var dismissed=false;
+  var isPlaying=false;
+  function showDock(){if(!dismissed)dock.hidden=false;}
+  function setPlaying(value){
+    isPlaying=!!value;
+    toggle.textContent=isPlaying?"Ⅱ":"▶";
+    toggle.setAttribute("aria-label",isPlaying?"Pausar música":"Reanudar música");
+    toggle.title=isPlaying?"Pausar":"Reanudar";
+    status.textContent=isPlaying?"Reproduciendo":"En pausa";
+  }
+  function syncTrack(){
+    widget.getCurrentSound(function(sound){
+      if(!sound)return;
+      title.textContent=sound.title||"Tema de Fezet";
+      status.textContent=(sound.user&&sound.user.username?sound.user.username:"Fezet")+(isPlaying?" · Reproduciendo":" · En pausa");
+    });
+  }
+  widget.bind(window.SC.Widget.Events.READY,function(){
+    widget.isPaused(function(paused){setPlaying(!paused);if(!paused){dismissed=false;showDock();syncTrack();}});
+  });
+  widget.bind(window.SC.Widget.Events.PLAY,function(){
+    dismissed=false;showDock();setPlaying(true);syncTrack();
+  });
+  widget.bind(window.SC.Widget.Events.PAUSE,function(){setPlaying(false);});
+  widget.bind(window.SC.Widget.Events.FINISH,function(){setPlaying(false);status.textContent="Tema terminado";});
+  toggle.addEventListener("click",function(){
+    dismissed=false;showDock();
+    if(isPlaying){widget.pause();}
+    else{widget.play();}
+  });
+  close.addEventListener("click",function(){
+    dismissed=true;
+    widget.pause();
+    dock.hidden=true;
+  });
+  }
+  window.addEventListener("fezetSoundCloudSourceReady",initFezetFloatingWidget,{once:true});
+  if(window.fezetSoundCloudSourceReady)initFezetFloatingWidget();
+})();
+</script>
 
 <script>
 (function(){
