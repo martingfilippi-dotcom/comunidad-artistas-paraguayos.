@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=fezet-inline-player-20261025-1">
+<link rel="stylesheet" href="styles.css?v=fezet-classic-player-20261025-1">
 </head>
 <body>
 
@@ -64,103 +64,10 @@
     <div><p class="fezet-soundcloud-kicker">ESCUCHÁ SU MÚSICA</p><h3 class="fezet-soundcloud-title" id="fezet-soundcloud-title">Fezet en SoundCloud</h3></div>
     <a class="fezet-soundcloud-link" href="https://on.soundcloud.com/FQYUZMWqj5UM1yo4Np" target="_blank" rel="noopener noreferrer">ABRIR EN SOUNDCLOUD ↗</a>
   </div>
-  <div class="fezet-inline-player" aria-label="Reproductor de música de Fezet">
-    <div class="fezet-inline-topline"><span>FEZET <span class="fezet-inline-slash">/</span> SOUNDCLOUD</span><span id="fezet-player-status" class="fezet-player-status" aria-live="polite">Cargando catálogo…</span></div>
-    <div class="fezet-inline-current">
-      <div class="fezet-inline-art" aria-hidden="true"><span>F</span></div>
-      <div class="fezet-inline-current-copy"><span class="fezet-inline-overline">REPRODUCIENDO AHORA</span><h4 id="fezet-current-title">Fezet</h4><p id="fezet-current-artist">Preparando sus canciones…</p></div>
-    </div>
-    <div class="fezet-inline-controls">
-      <button type="button" class="fezet-inline-skip" id="fezet-prev" aria-label="Canción anterior" disabled>◀|</button>
-      <button type="button" class="fezet-inline-play" id="fezet-play" aria-label="Reproducir Fezet" disabled>▶</button>
-      <button type="button" class="fezet-inline-skip" id="fezet-next" aria-label="Siguiente canción" disabled>|▶</button>
-      <div class="fezet-inline-progress-area"><div class="fezet-inline-progress"><span id="fezet-progress"></span></div><div class="fezet-inline-time"><span id="fezet-time-current">0:00</span><span id="fezet-time-total">0:00</span></div></div>
-    </div>
-    <div class="fezet-inline-list-heading"><span>LISTA DE TEMAS</span><span id="fezet-track-count">—</span></div>
-    <div id="fezet-track-list" class="fezet-inline-track-list" aria-live="polite"><p class="fezet-inline-loading">Conectando con SoundCloud…</p></div>
-    <div class="fezet-inline-footer"><span>REPRODUCCIÓN POR</span><a href="https://soundcloud.com/user-564048541" target="_blank" rel="noopener noreferrer" aria-label="Fezet en SoundCloud">SOUNDCLOUD ↗</a></div>
+  <div class="fezet-soundcloud-player">
+    <iframe id="fezet-soundcloud-player" title="Reproductor de SoundCloud de Fezet" width="100%" height="450" loading="lazy" scrolling="no" frameborder="0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fusers%2F1124810716&amp;auto_play=false&amp;show_teaser=true&amp;visual=false&amp;show_comments=false&amp;show_user=true&amp;show_artwork=true&amp;color=ff6a2b"></iframe>
   </div>
-  <iframe id="fezet-soundcloud-engine" class="fezet-soundcloud-engine" title="Motor de reproducción de SoundCloud de Fezet" width="1" height="1" loading="eager" scrolling="no" frameborder="0" allow="autoplay; encrypted-media" tabindex="-1" aria-hidden="true" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fon.soundcloud.com%2FFQYUZMWqj5UM1yo4Np&amp;color=%23ff6a2b&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false"></iframe>
-</section>
-<script src="https://w.soundcloud.com/player/api.js"></script>
-<script>
-(function(){
-  const frame=document.getElementById("fezet-soundcloud-engine");
-  const playButton=document.getElementById("fezet-play");
-  const previousButton=document.getElementById("fezet-prev");
-  const nextButton=document.getElementById("fezet-next");
-  const status=document.getElementById("fezet-player-status");
-  const currentTitle=document.getElementById("fezet-current-title");
-  const currentArtist=document.getElementById("fezet-current-artist");
-  const trackCount=document.getElementById("fezet-track-count");
-  const trackList=document.getElementById("fezet-track-list");
-  const progress=document.getElementById("fezet-progress");
-  const currentTime=document.getElementById("fezet-time-current");
-  const totalTime=document.getElementById("fezet-time-total");
-  if(!frame||!window.SC||!window.SC.Widget){if(status)status.textContent="Reproductor no disponible";if(trackList)trackList.innerHTML='<p class="fezet-inline-loading">No se pudo conectar. Usá “Abrir en SoundCloud”.</p>';return;}
-  const widget=window.SC.Widget(frame);
-  let sounds=[];
-  let currentId=null;
-  let playing=false;
-  let ready=false;
-  function timeLabel(ms){const seconds=Math.max(0,Math.floor((Number(ms)||0)/1000));return Math.floor(seconds/60)+":"+String(seconds%60).padStart(2,"0");}
-  function paintPlay(){playButton.textContent=playing?"Ⅱ":"▶";playButton.setAttribute("aria-label",playing?"Pausar Fezet":"Reproducir Fezet");playButton.classList.toggle("is-playing",playing);}
-  function setCurrent(sound){
-    if(!sound)return;
-    currentId=sound.id;
-    currentTitle.textContent=sound.title||"Tema de Fezet";
-    currentArtist.textContent=(sound.user&&sound.user.username?sound.user.username:"fezet")+" · SoundCloud";
-    totalTime.textContent=timeLabel(sound.duration);
-    currentTime.textContent="0:00";
-    progress.style.width="0%";
-    Array.from(trackList.querySelectorAll(".fezet-track-row")).forEach(function(row){row.classList.toggle("is-current",row.dataset.trackId===String(sound.id));});
-    const art=document.querySelector(".fezet-inline-art");
-    if(art){
-      art.replaceChildren();
-      const image=sound.artwork_url||"";
-      if(image){const img=document.createElement("img");img.src=image.replace("-large","-t200x200");img.alt="";img.onerror=function(){art.innerHTML="<span>F</span>";};art.appendChild(img);}
-      else{const letter=document.createElement("span");letter.textContent="F";art.appendChild(letter);}
-    }
-  }
-  function getCurrent(){widget.getCurrentSound(function(sound){if(sound)setCurrent(sound);});}
-  function renderTracks(){
-    trackList.replaceChildren();
-    if(!sounds.length){trackList.innerHTML='<p class="fezet-inline-loading">SoundCloud no devolvió temas disponibles.</p>';status.textContent="Catálogo vacío";return;}
-    trackCount.textContent=String(sounds.length)+" TEMAS";
-    sounds.forEach(function(sound,index){
-      const row=document.createElement("button");row.type="button";row.className="fezet-track-row";row.dataset.trackId=String(sound.id);
-      row.setAttribute("aria-label","Reproducir "+(sound.title||"tema "+(index+1)));
-      const number=document.createElement("span");number.className="fezet-track-number";number.textContent=String(index+1).padStart(2,"0");
-      const imageWrap=document.createElement("span");imageWrap.className="fezet-track-art";
-      if(sound.artwork_url){const img=document.createElement("img");img.src=sound.artwork_url.replace("-large","-t67x67");img.alt="";img.loading="lazy";img.onerror=function(){imageWrap.textContent="♪";};imageWrap.appendChild(img);}else{imageWrap.textContent="♪";}
-      const copy=document.createElement("span");copy.className="fezet-track-copy";
-      const title=document.createElement("span");title.className="fezet-track-title";title.textContent=sound.title||"Tema sin título";
-      const artist=document.createElement("span");artist.className="fezet-track-artist";artist.textContent=sound.user&&sound.user.username?sound.user.username:"fezet";
-      copy.append(title,artist);
-      const duration=document.createElement("span");duration.className="fezet-track-duration";duration.textContent=timeLabel(sound.duration);
-      row.append(number,imageWrap,copy,duration);
-      row.addEventListener("click",function(){if(!ready)return;widget.skip(index);widget.play();});
-      trackList.appendChild(row);
-    });
-    status.textContent="Listo para escuchar";
-    playButton.disabled=false;previousButton.disabled=false;nextButton.disabled=false;
-    getCurrent();
-  }
-  widget.bind(window.SC.Widget.Events.READY,function(){
-    ready=true;
-    status.textContent="Cargando canciones…";
-    widget.getSounds(function(list){sounds=Array.isArray(list)?list:[];renderTracks();});
-  });
-  widget.bind(window.SC.Widget.Events.PLAY,function(){playing=true;paintPlay();status.textContent="Reproduciendo";getCurrent();});
-  widget.bind(window.SC.Widget.Events.PAUSE,function(){playing=false;paintPlay();status.textContent="En pausa";});
-  widget.bind(window.SC.Widget.Events.FINISH,function(){widget.next();});
-  widget.bind(window.SC.Widget.Events.PLAY_PROGRESS,function(event){if(event){progress.style.width=(Math.max(0,Math.min(1,Number(event.relativePosition)||0))*100)+"%";currentTime.textContent=timeLabel(event.currentPosition);}});
-  widget.bind(window.SC.Widget.Events.ERROR,function(){status.textContent="No se pudo reproducir";});
-  playButton.addEventListener("click",function(){if(!ready){status.textContent="Conectando con SoundCloud…";return;}if(playing)widget.pause();else widget.play();});
-  previousButton.addEventListener("click",function(){if(ready)widget.prev();});
-  nextButton.addEventListener("click",function(){if(ready)widget.next();});
-})();
-</script></div></div></div>
+</section></div></div></div>
   <div class="indie-profile-page joako-profile" id="indie-profile-joako" hidden>
     <button type="button" class="indie-profile-back">← VOLVER A ARTISTAS INDEPENDIENTES</button>
     <section class="joako-cover">
