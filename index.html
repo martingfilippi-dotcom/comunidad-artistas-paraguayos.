@@ -242,8 +242,9 @@
       });
     }catch(error){}
   }
+  function fezetProfileIsVisible(){var profile=document.getElementById("indie-profile-fezet");return !!profile&&!profile.hidden;}
   function initWidget(){
-    if(!sourceReady||widget||initStarted)return;
+    if(!sourceReady||!fezetProfileIsVisible()||widget||initStarted)return;
     if(!frame||!dock||!toggle||!close||!window.SC||!window.SC.Widget){
       attempts++;
       if(attempts<40)setTimeout(initWidget,250);
