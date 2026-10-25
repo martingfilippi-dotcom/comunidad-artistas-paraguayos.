@@ -636,3 +636,8 @@ h2{font-size:clamp(38px,5vw,64px);line-height:1.02;letter-spacing:-.065em;font-w
 .fezet-inline-footer a:hover{color:#f15a24}
 .fezet-soundcloud-engine{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;border:0!important}
 @media(max-width:640px){.fezet-inline-topline{padding:12px;font-size:9px}.fezet-player-status{font-size:9px}.fezet-inline-current{padding:15px 12px 11px;gap:11px}.fezet-inline-art{width:62px;height:62px;flex-basis:62px}.fezet-inline-current-copy h4{font-size:17px}.fezet-inline-controls{padding:10px 12px 15px;gap:7px}.fezet-inline-play{width:44px;height:44px}.fezet-inline-progress-area{margin-left:2px}.fezet-inline-list-heading{padding:12px 12px 8px}.fezet-inline-track-list{max-height:340px;padding:0 6px 6px}.fezet-track-row{gap:8px;padding:9px 5px}.fezet-track-art{width:36px;height:36px;flex-basis:36px}.fezet-track-title{font-size:11px}.fezet-inline-footer{padding:12px}}
+
+/* Fezet — mobile instructions for SoundCloud's built-in browser interstitial */
+.fezet-soundcloud-mobile-help{margin:0 0 12px;padding:12px 14px;border-left:3px solid #f15a24;background:#f6f6f1;color:#596156;font-size:13px;line-height:1.5;border-radius:0 6px 6px 0}
+.fezet-soundcloud-mobile-help strong{color:#193d2e}
+@media(max-width:640px){.fezet-soundcloud-mobile-help{font-size:12px;padding:11px 12px}}
