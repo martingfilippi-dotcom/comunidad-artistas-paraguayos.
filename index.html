@@ -74,6 +74,7 @@
 (function(){
   const sharedUrl = "https://on.soundcloud.com/FQYUZMWqj5UM1yo4Np";
   const frame = document.getElementById("fezet-soundcloud-player");
+  function markFezetSourceReady(){ window.fezetSoundCloudSourceReady=true; window.dispatchEvent(new Event("fezetSoundCloudSourceReady")); }
   // Match the working LK integration: resolve the artist's shared URL through SoundCloud oEmbed.
   if (frame) {
     frame.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(sharedUrl) +
@@ -82,12 +83,12 @@
   fetch("https://soundcloud.com/oembed?format=json&url=" + encodeURIComponent(sharedUrl))
     .then(function(response){ if(!response.ok) throw new Error("SoundCloud oEmbed unavailable"); return response.json(); })
     .then(function(data){
-      if(!data || !data.html || !frame) return;
+      if(!data || !data.html || !frame){ markFezetSourceReady(); return; }
       const parsed = new DOMParser().parseFromString(data.html, "text/html");
       const embedded = parsed.querySelector("iframe");
-      if(!embedded || !embedded.src) return;
+      if(!embedded || !embedded.src){ markFezetSourceReady(); return; }
       const embedUrl = new URL(embedded.src, "https://soundcloud.com");
-      if(embedUrl.hostname !== "w.soundcloud.com") return;
+      if(embedUrl.hostname !== "w.soundcloud.com"){ markFezetSourceReady(); return; }
       embedUrl.searchParams.set("show_teaser", "false");
       embedUrl.searchParams.set("visual", "false");
       embedUrl.searchParams.set("auto_play", "false");
@@ -97,8 +98,9 @@
       embedUrl.searchParams.set("show_reposts", "false");
       embedUrl.searchParams.set("color", "#ff6a2b");
       frame.src = embedUrl.href;
+      markFezetSourceReady();
     })
-    .catch(function(){ /* The direct SoundCloud widget remains available as fallback. */ });
+    .catch(function(){ /* The direct SoundCloud widget remains available as fallback. */ markFezetSourceReady(); });
 })();
 </script></div></div></div>
   <div class="indie-profile-page joako-profile" id="indie-profile-joako" hidden>
@@ -192,6 +194,7 @@
 </div>
 <script>
 (function(){
+  function initFezetFloatingWidget(){
   var frame=document.getElementById("fezet-soundcloud-player");
   var dock=document.getElementById("fezet-floating-player");
   var toggle=document.getElementById("fezet-floating-toggle");
@@ -235,6 +238,9 @@
     widget.pause();
     dock.hidden=true;
   });
+  }
+  window.addEventListener("fezetSoundCloudSourceReady",initFezetFloatingWidget,{once:true});
+  if(window.fezetSoundCloudSourceReady)initFezetFloatingWidget();
 })();
 </script>
 
