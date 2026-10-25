@@ -580,3 +580,15 @@ h2{font-size:clamp(38px,5vw,64px);line-height:1.02;letter-spacing:-.065em;font-w
 .joako-profile .joako-player-poster>img{filter:grayscale(35%) sepia(15%) hue-rotate(220deg)!important}
 .joako-profile .joako-cover h2 span,.joako-profile .joako-player-copy h3 em,.joako-profile .joako-bio-heading h3 em,.joako-profile .joako-outro h3 em{color:#c7a0ff!important}
 @media(max-width:760px){.joako-profile .joako-cover-shade{background:linear-gradient(0deg,rgba(20,11,31,.98) 0%,rgba(30,16,46,.77) 55%,rgba(30,16,46,.16) 100%)!important}}
+
+
+/* Fezet — official embedded SoundCloud player (scoped to this artist only) */
+.fezet-soundcloud{margin-top:28px;padding-top:24px;border-top:1px solid #193d2e22;min-width:0}
+.fezet-soundcloud-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.fezet-soundcloud-kicker{margin:0 0 7px;font-size:9px;font-weight:700;letter-spacing:.12em;color:#66705f}
+.fezet-soundcloud-title{margin:0;color:#193d2e;font-size:clamp(22px,3vw,30px);line-height:1.05;letter-spacing:-.04em}
+.fezet-soundcloud-link{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:9px 12px;border:1px solid #193d2e40;border-radius:3px;color:#193d2e;font-size:9px;font-weight:700;letter-spacing:.06em}
+.fezet-soundcloud-link:hover{border-color:#b83c2c;color:#b83c2c}
+.fezet-soundcloud-player{width:100%;min-width:0;overflow:hidden;border:1px solid #193d2e22;border-radius:8px;background:#f6f6f4}
+.fezet-soundcloud-player iframe{display:block;width:100%;max-width:100%;height:166px;border:0}
+@media(max-width:640px){.fezet-soundcloud{margin-top:22px;padding-top:20px}.fezet-soundcloud-heading{align-items:flex-start}.fezet-soundcloud-title{font-size:24px}.fezet-soundcloud-link{min-height:40px}.fezet-soundcloud-player iframe{height:166px}}
