@@ -201,6 +201,7 @@
   var title=document.getElementById("fezet-floating-title");
   var status=document.getElementById("fezet-floating-status");
   var widget=null;
+  var sourceReady=!!window.fezetSoundCloudSourceReady;
   var widgetReady=false;
   var dismissed=false;
   var isPlaying=false;
@@ -242,7 +243,7 @@
     }catch(error){}
   }
   function initWidget(){
-    if(widget||initStarted)return;
+    if(!sourceReady||widget||initStarted)return;
     if(!frame||!dock||!toggle||!close||!window.SC||!window.SC.Widget){
       attempts++;
       if(attempts<40)setTimeout(initWidget,250);
@@ -276,7 +277,7 @@
     dock.hidden=false;
     status.textContent=isPlaying?"Reproduciendo":(widgetReady?"Listo para escuchar":"Conectando con SoundCloud…");
     if(widget)pollState();
-    else initWidget();
+    else if(sourceReady)initWidget();
   };
 
   toggle.addEventListener("click",function(){
@@ -292,8 +293,8 @@
     dock.hidden=true;
   });
 
-  window.addEventListener("fezetSoundCloudSourceReady",initWidget,{once:true});
-  if(window.fezetSoundCloudSourceReady)initWidget();
+  window.addEventListener("fezetSoundCloudSourceReady",function(){sourceReady=true;setTimeout(initWidget,60);},{once:true});
+  if(sourceReady)setTimeout(initWidget,60);
 })();
 </script>
 
