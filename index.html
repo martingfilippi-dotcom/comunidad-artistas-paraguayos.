@@ -65,9 +65,40 @@
     <a class="fezet-soundcloud-link" href="https://on.soundcloud.com/FQYUZMWqj5UM1yo4Np" target="_blank" rel="noopener noreferrer">ABRIR EN SOUNDCLOUD ↗</a>
   </div>
   <div class="fezet-soundcloud-player">
-    <iframe src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fusers%2F1124810716&amp;auto_play=false&amp;show_teaser=true&amp;visual=false&amp;show_comments=false&amp;show_user=true&amp;show_artwork=true&amp;color=ff6a2b" title="Reproductor de SoundCloud de Fezet" width="100%" height="450" loading="lazy" scrolling="no" frameborder="0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <iframe id="fezet-soundcloud-player" title="Reproductor oficial de SoundCloud de Fezet" loading="lazy" width="100%" height="450" allow="autoplay" scrolling="no" frameborder="0" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fon.soundcloud.com%2FFQYUZMWqj5UM1yo4Np&amp;color=%23ff6a2b&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
-</section></div></div></div>
+</section>
+<script>
+(function(){
+  const sharedUrl = "https://on.soundcloud.com/FQYUZMWqj5UM1yo4Np";
+  const frame = document.getElementById("fezet-soundcloud-player");
+  // Match LK's working SoundCloud integration: use the share URL, then resolve it through SoundCloud oEmbed.
+  if (frame) {
+    frame.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(sharedUrl) +
+      "&color=%23ff6a2b&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false";
+  }
+  fetch("https://soundcloud.com/oembed?format=json&url=" + encodeURIComponent(sharedUrl))
+    .then(function(response){ if(!response.ok) throw new Error("SoundCloud oEmbed unavailable"); return response.json(); })
+    .then(function(data){
+      if(!data || !data.html || !frame) return;
+      const parsed = new DOMParser().parseFromString(data.html, "text/html");
+      const embedded = parsed.querySelector("iframe");
+      if(!embedded || !embedded.src) return;
+      const embedUrl = new URL(embedded.src, "https://soundcloud.com");
+      if(embedUrl.hostname !== "w.soundcloud.com") return;
+      embedUrl.searchParams.set("hide_related", "true");
+      embedUrl.searchParams.set("show_comments", "false");
+      embedUrl.searchParams.set("show_user", "true");
+      embedUrl.searchParams.set("show_reposts", "false");
+      embedUrl.searchParams.set("show_teaser", "false");
+      embedUrl.searchParams.set("visual", "false");
+      embedUrl.searchParams.set("auto_play", "false");
+      embedUrl.searchParams.set("color", "#ff6a2b");
+      frame.src = embedUrl.href;
+    })
+    .catch(function(){ /* Direct SoundCloud widget remains available as fallback. */ });
+})();
+</script></div></div></div>
   <div class="indie-profile-page joako-profile" id="indie-profile-joako" hidden>
     <button type="button" class="indie-profile-back">← VOLVER A ARTISTAS INDEPENDIENTES</button>
     <section class="joako-cover">
