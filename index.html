@@ -178,6 +178,11 @@
  document.querySelectorAll('.indie-profile-back').forEach(function(el){
    el.addEventListener('click',function(){showProfile('');});
  });
+ // Allow a shareable direct URL for a known artist profile, e.g. ?artist=fezet.
+ const requestedProfile=new URLSearchParams(window.location.search).get('artist');
+ if(requestedProfile && pages.some(function(page){return page.id==='indie-profile-'+requestedProfile;})){
+   showProfile(requestedProfile);
+ }
 })();
 </script>
 <script src="community-content.js" defer></script>
