@@ -590,5 +590,5 @@ h2{font-size:clamp(38px,5vw,64px);line-height:1.02;letter-spacing:-.065em;font-w
 .fezet-soundcloud-link{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:9px 12px;border:1px solid #193d2e40;border-radius:3px;color:#193d2e;font-size:9px;font-weight:700;letter-spacing:.06em}
 .fezet-soundcloud-link:hover{border-color:#b83c2c;color:#b83c2c}
 .fezet-soundcloud-player{width:100%;min-width:0;overflow:hidden;border:1px solid #193d2e22;border-radius:8px;background:#f6f6f4}
-.fezet-soundcloud-player iframe{display:block;width:100%;max-width:100%;height:166px;border:0}
-@media(max-width:640px){.fezet-soundcloud{margin-top:22px;padding-top:20px}.fezet-soundcloud-heading{align-items:flex-start}.fezet-soundcloud-title{font-size:24px}.fezet-soundcloud-link{min-height:40px}.fezet-soundcloud-player iframe{height:166px}}
+.fezet-soundcloud-player iframe{display:block;width:100%;max-width:100%;height:450px;border:0}
+@media(max-width:640px){.fezet-soundcloud{margin-top:22px;padding-top:20px}.fezet-soundcloud-heading{align-items:flex-start}.fezet-soundcloud-title{font-size:24px}.fezet-soundcloud-link{min-height:40px}.fezet-soundcloud-player iframe{height:450px}}
