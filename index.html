@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=fezet-mobile-listen-help-20261025-1">
+<link rel="stylesheet" href="styles.css?v=fezet-match-lk-oembed-20261025-1">
 </head>
 <body>
 
@@ -66,9 +66,40 @@
   </div>
   <p class="fezet-soundcloud-mobile-help"><strong>Para escuchar sin salir de esta página:</strong> si aparece un aviso de SoundCloud, elegí la opción para continuar en el navegador. Evitá la opción para abrir SoundCloud, porque te llevará fuera de esta web.</p>
   <div class="fezet-soundcloud-player">
-    <iframe id="fezet-soundcloud-player" title="Reproductor de SoundCloud de Fezet" width="100%" height="450" loading="lazy" scrolling="no" frameborder="0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Fusers%2F1124810716&amp;auto_play=false&amp;show_teaser=false&amp;visual=false&amp;show_comments=false&amp;show_user=true&amp;show_artwork=true&amp;color=ff6a2b"></iframe>
+    <iframe id="fezet-soundcloud-player" title="Reproductor de SoundCloud de Fezet" width="100%" height="450" loading="lazy" scrolling="no" frameborder="0" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fon.soundcloud.com%2FFQYUZMWqj5UM1yo4Np&amp;color=%23ff6a2b&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false"></iframe>
   </div>
-</section></div></div></div>
+</section>
+<script>
+(function(){
+  const sharedUrl = "https://on.soundcloud.com/FQYUZMWqj5UM1yo4Np";
+  const frame = document.getElementById("fezet-soundcloud-player");
+  // Match the working LK integration: resolve the artist's shared URL through SoundCloud oEmbed.
+  if (frame) {
+    frame.src = "https://w.soundcloud.com/player/?url=" + encodeURIComponent(sharedUrl) +
+      "&color=%23ff6a2b&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false";
+  }
+  fetch("https://soundcloud.com/oembed?format=json&url=" + encodeURIComponent(sharedUrl))
+    .then(function(response){ if(!response.ok) throw new Error("SoundCloud oEmbed unavailable"); return response.json(); })
+    .then(function(data){
+      if(!data || !data.html || !frame) return;
+      const parsed = new DOMParser().parseFromString(data.html, "text/html");
+      const embedded = parsed.querySelector("iframe");
+      if(!embedded || !embedded.src) return;
+      const embedUrl = new URL(embedded.src, "https://soundcloud.com");
+      if(embedUrl.hostname !== "w.soundcloud.com") return;
+      embedUrl.searchParams.set("show_teaser", "false");
+      embedUrl.searchParams.set("visual", "false");
+      embedUrl.searchParams.set("auto_play", "false");
+      embedUrl.searchParams.set("hide_related", "true");
+      embedUrl.searchParams.set("show_comments", "false");
+      embedUrl.searchParams.set("show_user", "true");
+      embedUrl.searchParams.set("show_reposts", "false");
+      embedUrl.searchParams.set("color", "#ff6a2b");
+      frame.src = embedUrl.href;
+    })
+    .catch(function(){ /* The direct SoundCloud widget remains available as fallback. */ });
+})();
+</script></div></div></div>
   <div class="indie-profile-page joako-profile" id="indie-profile-joako" hidden>
     <button type="button" class="indie-profile-back">← VOLVER A ARTISTAS INDEPENDIENTES</button>
     <section class="joako-cover">
